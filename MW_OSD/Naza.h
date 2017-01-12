@@ -5,15 +5,14 @@
 void NAZA_NewData(uint8_t c){
   uint8_t decodedMessage = NazaDecoder.decode(c);
   int8_t sattemp;
-  timer.MSP_active=ALARM_MSP;             // getting something on serial port
   switch (decodedMessage){
     uint8_t GPS_fix_temp;
     case NAZA_MESSAGE_GPS:
       sattemp=NazaDecoder.getNumSat();
       if (sattemp>4){
-        #ifdef ALARM_GPS
-          timer.GPS_active=ALARM_GPS;
-        #endif //ALARM_GPS
+        #ifdef GPSACTIVECHECK
+          timer.GPS_active=GPSACTIVECHECK;
+        #endif //GPSACTIVECHECK
         GPS_numSat=NazaDecoder.getNumSat();
         GPS_coord[LAT]=(int32_t)(10000000*NazaDecoder.getLat());
         GPS_coord[LON]=(int32_t)(10000000*NazaDecoder.getLon());
@@ -38,6 +37,7 @@ void NAZA_NewData(uint8_t c){
   }
 }
 #endif
+
 
 
 

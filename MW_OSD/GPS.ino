@@ -179,22 +179,21 @@ void GPS_updateGGA(){
 
 
 void GPS_NewData() {
-  static uint8_t GPS_fix_HOME_validation=GPSHOMEFIX;
-
+//  GPS_SerialInitialised=0;
+//  if (GPS_active>0)
+//    GPS_active--;
   if (GPS_fix && (GPS_numSat >= MINSATFIX)) {
-    if (GPS_fix_HOME_validation>0){
-#if defined HOMESATFIX
-      if (GPS_numSat>=HOMESATFIX)
-#endif // HOMESATFIX
-        GPS_fix_HOME_validation--;
-      GPS_numSat=1;
+    if (GPS_fix_HOME == 0){
+      GPS_reset_home_position();
+      GPS_fix_HOME=1;
+      if (!GPS_fix_HOME) {
+        GPS_distanceToHome = 0;
+        GPS_directionToHome = 0;
+        GPS_altitude = 0 ;
+        MwAltitude = 0 ;
+      }  
     }
-    else{
-      if (GPS_fix_HOME == 0){
-        GPS_reset_home_position();
-        GPS_fix_HOME=1;
-      }
-      else{
+
     //calculate distance. bearings etc
     uint32_t dist;
     int32_t  dir;
@@ -235,19 +234,7 @@ void GPS_NewData() {
         GPS_home_timer=millis();
       }    
     }
-      }
-    }
   }
-  else{
-    GPS_fix_HOME_validation=GPSHOMEFIX;
-/*
-      GPS_distanceToHome = 0;
-      GPS_directionToHome = 0;
-      GPS_altitude = 0;
-      MwAltitude = 0;
-*/  
-  }
-
 }
 
 
@@ -389,9 +376,9 @@ bool GPS_newFrame(char c) {
       } else if (frame == FRAME_RMC) {
         if      (param == 7)                     {GPS_parse.GPS_speed = ((uint32_t)grab_fields(string,1)*5144L)/1000L;}  //gps speed in cm/s will be used for navigation
         else if (param == 8)                     {GPS_parse.GPS_ground_course = grab_fields(string,1); }                 //ground course deg*10 
-        #ifdef ALARM_GPS
-           timer.GPS_active=ALARM_GPS;
-        #endif //ALARM_GPS
+        #ifdef GPSACTIVECHECK
+           timer.GPS_active=GPSACTIVECHECK;
+        #endif //GPSACTIVECHECK
 
       }
       param++; offset = 0;
@@ -602,21 +589,15 @@ bool GPS_newFrame(char c) {
         gpsvario();
       }
       GPS_fix = _fix_ok;
-      #ifdef ALARM_GPS
-         timer.GPS_active=ALARM_GPS;
-      #endif //ALARM_GPS
+      #ifdef GPSACTIVECHECK
+         timer.GPS_active=GPSACTIVECHECK;
+      #endif //GPSACTIVECHECK
       return true;        // POSLLH message received, allow blink GUI icon and LED
       break;
     case MSG_SOL:
       _fix_ok = 0;
       if((_buffer.solution.fix_status & NAV_STATUS_FIX_VALID) && (_buffer.solution.fix_type == FIX_3D || _buffer.solution.fix_type == FIX_2D)) _fix_ok = 1;
       GPS_numSat = _buffer.solution.satellites;
-#ifdef DISPLAYDOP
-      GPS_pdop = _buffer.solution.position_DOP;
-      if ((GPS_fix_HOME == 0) && (GPS_pdop>GPSDOP)) {
-          GPS_numSat=MINSATFIX-1;
-      }
-#endif      
       break;
     case MSG_VELNED:
       GPS_speed         = _buffer.velned.speed_2d;  // cm/s
@@ -762,9 +743,9 @@ restart:
             }
 
             GPS_fix                   = ((_buffer.msg.fix_type == FIX_3D) || (_buffer.msg.fix_type == FIX_3D_SBAS));
-            #ifdef ALARM_GPS
-              timer.GPS_active=ALARM_GPS;
-            #endif //ALARM_GPS
+            #ifdef GPSACTIVECHECK
+              timer.GPS_active=GPSACTIVECHECK;
+            #endif //GPSACTIVECHECK
 
     #if defined(MTK_BINARY16)
             GPS_coord[LAT]              = _buffer.msg.latitude * 10;    // XXX doc says *10e7 but device says otherwise
@@ -798,6 +779,3 @@ void gpsvario(){
   }  
 }
 
-#if defined NAZA
-  #include "Naza.h"
-#endif  
