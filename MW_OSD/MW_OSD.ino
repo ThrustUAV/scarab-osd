@@ -1211,11 +1211,11 @@ void update_vtx_power(void)
     switch (Settings[S_VTX_POWER])
     {
       default:
-      case 0: power = VTX_POWER_MAX;
+      case 2: power = VTX_POWER_MAX;
               break;
       case 1: power = VTX_POWER_MID;
               break;
-      case 2: power = VTX_POWER_MIN;
+      case 0: power = VTX_POWER_MIN;
               //power |= (((uint8_t)Settings[S_VTX_POWER_TUNE]) << 15);
               //power |= (0x6 << 15);
               ///tune = 0b00110000000000000000;
