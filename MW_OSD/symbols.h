@@ -154,18 +154,14 @@
 #define SYM_KMH 0XA5
 #define SYM_ALTM 0XA7
 #define SYM_DISTHOME_M 0XBB
-#define SYM_DISTHOME_KM 0XDF
 #define SYM_M 0X0C
-#define SYM_ALTKM 0X7A
 
 // Unit Icon´s (Imperial)
 #define SYM_FTS 0X99
 #define SYM_MPH 0XA6
 #define SYM_ALTFT 0XA8
 #define SYM_DISTHOME_FT 0XB9
-#define SYM_DISTHOME_MI 0XBB
 #define SYM_FT 0X0F
-#define SYM_ALTMI 0XA7
 
 // Voltage and amperage 
 #define SYM_VOLT 0XA9
@@ -209,3 +205,4 @@
 //sport
 #define SYM_MIN 0xB3
 #define SYM_AVG 0xB4
+
