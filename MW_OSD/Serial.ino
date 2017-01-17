@@ -546,14 +546,14 @@ void handleRawRC() {
   MAX7456_WriteString(screenBuffer, 80);
   */
   
-  /*
+  
   else if(waitStick == 1) {
     if((millis() - stickTime) > timeout)
       waitStick = 0;
       timeout = 300;
   }
 
-  */
+  
 
   if(!waitStick)
   {
@@ -688,13 +688,43 @@ void serialMenuCommon()
 if(configPage == MENU_VTX_FREQ && COL == 2) 
 	{
     
+		if(ROW==1) Settings[S_VTX_BAND]=Settings[S_VTX_BAND]+menudir;
+		if(Settings[S_VTX_BAND]>=6){
+			Settings[S_VTX_BAND] = 0;
+		}
+		if(Settings[S_VTX_BAND]>4){
+			Settings[S_VTX_BAND] = 4;
+		}
+		
 		
         if(ROW==3) Settings[S_VTX_FREQ]=Settings[S_VTX_FREQ]+menudir;
-		if(Settings[S_VTX_FREQ]>=0xFF){
+		if(Settings[S_VTX_FREQ]>=9){
 			Settings[S_VTX_FREQ] = 0;
 		}
-		if(Settings[S_VTX_FREQ]>4){
-			Settings[S_VTX_FREQ] = 4;
+		if(Settings[S_VTX_FREQ]>7){
+			Settings[S_VTX_FREQ] = 7;
+		}
+		
+		
+		if (ROW == 6)
+		{
+		Settings[S_VTX_POWER]=Settings[S_VTX_POWER]+menudir;
+		if (Settings[S_VTX_POWER] >= 4)
+			Settings[S_VTX_POWER] = 0;
+		else if (Settings[S_VTX_POWER] > 2)
+			Settings[S_VTX_POWER] = 2;
+		update_vtx_power();
+		}
+		
+		
+		if (ROW==7)
+		{
+		Settings[S_VTX_POWER_TUNE] = Settings[S_VTX_POWER_TUNE]+menudir;
+		if (Settings[S_VTX_POWER_TUNE] >= 17)
+			Settings[S_VTX_POWER_TUNE] = 0;
+		else if (Settings[S_VTX_POWER_TUNE] > 15)
+			Settings[S_VTX_POWER_TUNE] = 15;
+		update_vtx_power();
 		}
 		
 	}

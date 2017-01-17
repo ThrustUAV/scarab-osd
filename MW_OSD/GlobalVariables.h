@@ -251,7 +251,7 @@ enum Setting_ {
   S_SIDEBARTOPS,
   S_VTX_POWER,  //S_UNUSED_6
   S_VTX_POWER_TUNE,  //S_UNUSED_1, //S_AMPMAXL,
-  S_UNUSED_2, //S_AMPMAXH,
+  S_VTX_BAND, // was S_UNUSED_2, //S_AMPMAXH,
   S_RCWSWITCH,
   S_RCWSWITCH_CH,
   S_HUDSW0,
@@ -600,17 +600,59 @@ uint16_t flyingTime=0;
 // For VTX Module
 const uint16_t channelTable[] PROGMEM = {
     // Channel 1 - 8
-    0x562D,    0x6500,    0x6CA8,    0x7884,	0x8129
+    0x7981,    0x758D,    0x7199,    0x6DA5,    0x69B1,    0x65BD,    0x6209,    0x5E15, // Band A
+    0x5F9D,    0x6338,    0x6713,    0x6AAE,    0x6E89,    0x7224,    0x75BF,    0x799A, // Band B
+    0x5A21,    0x562D,    0x5239,    0x4E85,    0x7D35,    0x8129,    0x851D,    0x8911, // Band E
+    0x610C,    0x6500,    0x68B4,    0x6CA8,    0x709C,    0x7490,    0x7884,    0x7C38, // Band F / Airwave
+    0x510A,    0x5827,    0x5F84,    0x66A1,    0x6DBE,    0x751B,    0x7C38,    0x8395  // Band C / Immersion Raceband
 };
-
-const char freq01[]PROGMEM = "5685"; //Usable  0x562D
-const char freq02[]PROGMEM = "5760"; //Usable  0x6500
-const char freq03[]PROGMEM = "5800"; //Usable  0x6CA8
-const char freq04[]PROGMEM = "5860"; //Usable  0x7884
-const char freq05[]PROGMEM = "5905"; //Usable  0x8129
+const char freq01[]PROGMEM = "5865";
+const char freq02[]PROGMEM = "5845";
+const char freq03[]PROGMEM = "5825";
+const char freq04[]PROGMEM = "5805";
+const char freq05[]PROGMEM = "5785";
+const char freq06[]PROGMEM = "5765";
+const char freq07[]PROGMEM = "5745";
+const char freq08[]PROGMEM = "5725";
+const char freq09[]PROGMEM = "5733";
+const char freq10[]PROGMEM = "5752";
+const char freq11[]PROGMEM = "5771";
+const char freq12[]PROGMEM = "5790";
+const char freq13[]PROGMEM = "5809";
+const char freq14[]PROGMEM = "5828";
+const char freq15[]PROGMEM = "5847";
+const char freq16[]PROGMEM = "5866";
+const char freq17[]PROGMEM = "5705";
+const char freq18[]PROGMEM = "5685";
+const char freq19[]PROGMEM = "5665";
+const char freq20[]PROGMEM = "5645";
+const char freq21[]PROGMEM = "5885";
+const char freq22[]PROGMEM = "5905";
+const char freq23[]PROGMEM = "5925";
+const char freq24[]PROGMEM = "5945";
+const char freq25[]PROGMEM = "5740";
+const char freq26[]PROGMEM = "5760";
+const char freq27[]PROGMEM = "5780";
+const char freq28[]PROGMEM = "5800";
+const char freq29[]PROGMEM = "5820";
+const char freq30[]PROGMEM = "5840";
+const char freq31[]PROGMEM = "5860";
+const char freq32[]PROGMEM = "5880";
+const char freq33[]PROGMEM = "5658";
+const char freq34[]PROGMEM = "5695";
+const char freq35[]PROGMEM = "5732";
+const char freq36[]PROGMEM = "5769";
+const char freq37[]PROGMEM = "5806";
+const char freq38[]PROGMEM = "5843";
+const char freq39[]PROGMEM = "5880";
+const char freq40[]PROGMEM = "5917";
 const PROGMEM char * const channelFreqTable[] = {
-    // Freq 01-05
-    freq01, freq02, freq03, freq04, freq05, 
+    // Channel 1 - 8
+    freq01, freq02, freq03, freq04, freq05, freq06, freq07, freq08, // Band A
+    freq09, freq10, freq11, freq12, freq13, freq14, freq15, freq16, // Band B
+    freq17, freq18, freq19, freq20, freq21, freq22, freq23, freq24, // Band E
+    freq25, freq26, freq27, freq28, freq29, freq30, freq31, freq32, // Band F / Airwave
+    freq33, freq34, freq35, freq36, freq37, freq38, freq39, freq40   // Band C / Immersion Raceband
 };
 
 // For GPSOSD
@@ -862,9 +904,9 @@ const char configMsg74[]  PROGMEM = "DEBUG";
 const char configMsg75[]  PROGMEM = "MAG CAL";
 const char configMsg76[]  PROGMEM = "OSD TX CH";
 const char configMsg77[]  PROGMEM = "VTX OUTPUT PWR";
-const char configMsg770[] PROGMEM = "400 MW";
+const char configMsg770[] PROGMEM = "25 MW";
 const char configMsg771[] PROGMEM = "200 MW";
-const char configMsg772[] PROGMEM = "25 MW";
+const char configMsg772[] PROGMEM = "400 MW";
 const char configMsg78[]  PROGMEM = "VTX POWER TUNE";
 //-----------------------------------------------------------Page8
 const char configMsg80[] PROGMEM = "GPS TIME";
@@ -886,13 +928,13 @@ const char configMsg102[] PROGMEM = "PID CONTROLLER";
 const char configMsg103[] PROGMEM = "LOOPTIME";
 //-----------------------------------------------------------Page11
 const char configMsg104[] PROGMEM = "VTX FREQUENCY TUNING";
-const char configMsg105[] PROGMEM = "FREQUENCY";
-const char configMsg1051[] PROGMEM = "5685";
-const char configMsg1052[] PROGMEM = "5760";
-const char configMsg1053[] PROGMEM = "5800";
-const char configMsg1054[] PROGMEM = "5860";
-const char configMsg1055[] PROGMEM = "5905";
-
+const char configMsg105[] PROGMEM = "BAND";
+const char configMsg1051[] PROGMEM = "A";
+const char configMsg1052[] PROGMEM = "B";
+const char configMsg1053[] PROGMEM = "E";
+const char configMsg1054[] PROGMEM = "F";
+const char configMsg1055[] PROGMEM = "C";
+const char configMsg106[] PROGMEM = "FREQUENCY";
 
 // POSITION OF EACH CHARACTER OR LOGO IN THE MAX7456
 const unsigned char speedUnitAdd[2] ={
@@ -1136,10 +1178,11 @@ const PROGMEM char * const menu_profile[] =
 const PROGMEM char * const menu_vtx_freq[] = 
 {
   configMsg105,
+  configMsg106,
   
 };
 
-const PROGMEM char * const menu_choice_freq[] = 
+const PROGMEM char * const menu_choice_vtx_band[] = 
 {
 configMsg1051,
 configMsg1052,
