@@ -1,0 +1,1 @@
+RiotOSD(ATmega328);m328p;stk500;57600;
