@@ -1184,7 +1184,7 @@ void useairspeed(){
 void update_vtx_frequency(void)
 {
     uint8_t freq = 0;
-    freq = Settings[S_VTX_FREQ];
+    freq = ((8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ]));
     //delay(200);
     // Setting the R-Counter is not necessary every time but doesn't hurt
     vtx_write(0x00, 0x0190);  // default value, provides 40kHz frequency resolution

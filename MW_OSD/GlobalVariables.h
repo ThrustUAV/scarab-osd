@@ -340,7 +340,7 @@ MWOSDVER,   // used for check              0
 0,   // S_SIDEBARTOPS               43h
 2,   // S_VTX_POWER,                //******** PREVIOUSLY STORED HERE:      // S_UNUSED_6
 9,   // S_VTX_POWER_TUNE,           //******** PREVIOUSLY STORED HERE:      // S_UNUSED_1, S_AMPMAXL,
-0,   // S_UNUSED_2, S_AMPMAXH,
+3,   // S_VTX_BAND // was S_UNUSED_2, S_AMPMAXH,
 0,   // S_RCWSWITCH,
 4,   // S_RCWSWITCH_CH,
 0,   // S_HUDSW0, LOW / NORMAL
