@@ -832,24 +832,7 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
     if(ROW==4) Settings[S_DEBUG]=!Settings[S_DEBUG];
     if(ROW==5) timer.magCalibrationTimer=CALIBRATION_DELAY;
     if(ROW==6) Settings[S_RCWSWITCH_CH]=Settings[S_RCWSWITCH_CH]+menudir;
-    if (ROW == 7)
-    {
-      Settings[S_VTX_POWER]=Settings[S_VTX_POWER]+menudir;
-      if (Settings[S_VTX_POWER] >= 0xFF)
-        Settings[S_VTX_POWER] = 0;
-      else if (Settings[S_VTX_POWER] > 2)
-        Settings[S_VTX_POWER] = 2;
-      update_vtx_power();
-    }
-    if (ROW==8)
-    {
-      Settings[S_VTX_POWER_TUNE] = Settings[S_VTX_POWER_TUNE]+menudir;
-      if (Settings[S_VTX_POWER_TUNE] >= 0xFF)
-        Settings[S_VTX_POWER_TUNE] = 0;
-      else if (Settings[S_VTX_POWER_TUNE] > 15)
-        Settings[S_VTX_POWER_TUNE] = 15;
-      update_vtx_power();
-    }
+    
   }
 #endif
 #ifdef MENU_GPS_TIME

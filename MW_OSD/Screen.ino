@@ -1196,8 +1196,8 @@ void displayCursor(void)
     if(configPage==MENU_ADVANCED)
       {  
       COL=3;
-      //if (ROW==9) ROW=8;
-      //if (ROW==8) ROW=10;
+      if (ROW==9) ROW=6;
+      if (ROW==7) ROW=10;
        cursorpos=(ROW+2)*30+10+6+6;
       }
 #endif
@@ -1358,10 +1358,10 @@ void displayConfigScreen(void)
 		MAX7456_WriteString(itoa(Settings[S_VTX_POWER_TUNE], screenBuffer, 10), MAGI-4);
 		
 		// Debugging information
-		
+		/*
 		MAX7456_WriteString(itoa(ROW,screenBuffer,10),VELT);
 		MAX7456_WriteString(itoa(COL,screenBuffer,10),VELI);
-		
+		*/
     }
 #endif
 #ifdef MENU_PID
@@ -1530,7 +1530,7 @@ void displayConfigScreen(void)
 #ifdef MENU_ADVANCED
   if(configPage==MENU_ADVANCED)
   {
-    for(uint8_t X=0; X<=7; X++) {
+    for(uint8_t X=0; X<=5; X++) {
       strcpy_P(screenBuffer, (char*)pgm_read_word(&(menu_advanced[X])));
       MAX7456_WriteString(screenBuffer, ROLLT+ (X*30));
     }
@@ -1574,6 +1574,7 @@ void displayConfigScreen(void)
       
     MAX7456_WriteString(itoa(Settings[S_RCWSWITCH_CH],screenBuffer,10),LEVD);
 
+	/*
     switch (Settings[S_VTX_POWER])
     {
       default:
@@ -1586,6 +1587,7 @@ void displayConfigScreen(void)
     }
 
     MAX7456_WriteString(itoa(Settings[S_VTX_POWER_TUNE], screenBuffer, 10), MAGD+30);
+	*/
   }
 #endif
 #ifdef MENU_GPS_TIME
