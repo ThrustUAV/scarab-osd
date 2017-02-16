@@ -1074,7 +1074,7 @@ void displayDirectionToHome(void)
 void displayCursor(void)
 {
   
-  int cursorpos;
+  int cursorpos = 0;
       if(ROW>=10){
         if(COL==3) cursorpos=SAVEP+16-1;    // page
         if(COL==1) cursorpos=SAVEP-1;       // exit

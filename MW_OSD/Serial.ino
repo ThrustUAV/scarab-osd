@@ -692,8 +692,8 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 		if(Settings[S_VTX_BAND]>=6){
 			Settings[S_VTX_BAND] = 0;
 		}
-		if(Settings[S_VTX_BAND]>4){
-			Settings[S_VTX_BAND] = 4;
+		if(Settings[S_VTX_BAND]>5){
+			Settings[S_VTX_BAND] = 5;
 		}
 		
 		

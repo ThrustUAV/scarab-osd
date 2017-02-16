@@ -600,11 +600,12 @@ uint16_t flyingTime=0;
 // For VTX Module
 const uint16_t channelTable[] PROGMEM = {
     // Channel 1 - 8
-    0x7981,    0x758D,    0x7199,    0x6DA5,    0x69B1,    0x65BD,    0x6209,    0x5E15, // Band A
-    0x5F9D,    0x6338,    0x6713,    0x6AAE,    0x6E89,    0x7224,    0x75BF,    0x799A, // Band B
-    0x5A21,    0x562D,    0x5239,    0x4E85,    0x7D35,    0x8129,    0x851D,    0x8911, // Band E
-    0x610C,    0x6500,    0x68B4,    0x6CA8,    0x709C,    0x7490,    0x7884,    0x7C38, // Band F / Airwave
-    0x510A,    0x5827,    0x5F84,    0x66A1,    0x6DBE,    0x751B,    0x7C38,    0x8395  // Band C / Immersion Raceband
+    0x7981,	0x758D,	0x7199,	0x6DA5,	0x69B1,	0x65BD,	0x6209,	0x5E15, // Band A
+    0x5F9D,	0x6338,	0x6713,	0x6AAE,	0x6E89,	0x7224,	0x75BF,	0x799A, // Band B
+    0x5A21,	0x562D,	0x5239,	0x4E85,	0x7D35,	0x8129,	0x851D,	0x8911, // Band E
+    0x610C,	0x6500,	0x68B4,	0x6CA8,	0x709C,	0x7490,	0x7884,	0x7C38, // Band F / Airwave
+    0x510A,	0x5827,	0x5F84,	0x66A1,	0x6DBE,	0x751B,	0x7C38,	0x8395, // Band C / Immersion Raceband
+	0x0C11,	0x1005,	0x13B9,	0x17AD,	0x1BA1,	0x1F95,	0x2389,	0x45A0, // Band L, Low Band
 };
 const char freq01[]PROGMEM = "5865";
 const char freq02[]PROGMEM = "5845";
@@ -646,13 +647,22 @@ const char freq37[]PROGMEM = "5806";
 const char freq38[]PROGMEM = "5843";
 const char freq39[]PROGMEM = "5880";
 const char freq40[]PROGMEM = "5917";
+const char freq41[]PROGMEM = "5305";
+const char freq42[]PROGMEM = "5325";
+const char freq43[]PROGMEM = "5345";
+const char freq44[]PROGMEM = "5365";
+const char freq45[]PROGMEM = "5385";
+const char freq46[]PROGMEM = "5405";
+const char freq47[]PROGMEM = "5425";
+const char freq48[]PROGMEM = "5600";
 const PROGMEM char * const channelFreqTable[] = {
     // Channel 1 - 8
     freq01, freq02, freq03, freq04, freq05, freq06, freq07, freq08, // Band A
     freq09, freq10, freq11, freq12, freq13, freq14, freq15, freq16, // Band B
     freq17, freq18, freq19, freq20, freq21, freq22, freq23, freq24, // Band E
     freq25, freq26, freq27, freq28, freq29, freq30, freq31, freq32, // Band F / Airwave
-    freq33, freq34, freq35, freq36, freq37, freq38, freq39, freq40   // Band C / Immersion Raceband
+    freq33, freq34, freq35, freq36, freq37, freq38, freq39, freq40, // Band C / Immersion Raceband
+	freq41,	freq42,	freq43,	freq44,	freq45,	freq46,	freq47,	freq48	// Band L / Low Band
 };
 
 // For GPSOSD
@@ -934,6 +944,7 @@ const char configMsg1052[] PROGMEM = "B";
 const char configMsg1053[] PROGMEM = "E";
 const char configMsg1054[] PROGMEM = "F";
 const char configMsg1055[] PROGMEM = "C";
+const char configMsg1056[] PROGMEM = "L";
 const char configMsg106[] PROGMEM = "FREQUENCY";
 
 // POSITION OF EACH CHARACTER OR LOGO IN THE MAX7456
@@ -1188,7 +1199,8 @@ configMsg1051,
 configMsg1052,
 configMsg1053,
 configMsg1054,
-configMsg1055
+configMsg1055,
+configMsg1056
 	
 };
 

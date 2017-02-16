@@ -1185,19 +1185,14 @@ void update_vtx_frequency(void)
 {
     uint8_t freq = 0;
     freq = ((8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ]));
-    //delay(200);
-    // Setting the R-Counter is not necessary every time but doesn't hurt
+    
+	// Clock Divisor Register
     vtx_write(0x00, 0x0190);  // default value, provides 40kHz frequency resolution
-    vtx_write(0x01, ((pgm_read_word_near(channelTable + freq)) + 0x00040000));   // write N and A counter-dividers (from channel table)
-    //vtx_write(0x01, (0x00048395));   // write N and A counter-dividers (from channel table)
+	
+	// Frequency Selection Register
+	vtx_write(0x01, ((pgm_read_word_near(channelTable + freq)) + 0x00040000));   // write N and A counter-dividers (from channel table)
 
-//    strcpy_P(screenBuffer, (char *)freq);
-//    MAX7456_WriteString(screenBuffer, 70);
-  
-    //strcpy_P(screenBuffer, (char*)pgm_read_word(&(channelFreqTable[freq])));
-    //strcpy_P(screenBuffer, (char*)pgm_read_word(&(freq)));
-    //MAX7456_WriteString(screenBuffer, 70);
-    //while(1);
+
     update_vtx_power();
 }
 
