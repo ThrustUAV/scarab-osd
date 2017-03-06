@@ -36,6 +36,8 @@
 //#define MINTROTTLE       1000
 
 uint8_t hasDraw = 0;
+uint8_t globalTune = 0;
+uint8_t globalPower = 0;
 
 // FOR POSITION OF VTX FREQ CONFIG VALUE
 #define BANDAT     63
@@ -338,8 +340,8 @@ MWOSDVER,   // used for check              0
 1,   // S_TIMER                     41h
 1,   // S_MODESENSOR                42h
 0,   // S_SIDEBARTOPS               43h
-2,   // S_VTX_POWER,                //******** PREVIOUSLY STORED HERE:      // S_UNUSED_6
-9,   // S_VTX_POWER_TUNE,           //******** PREVIOUSLY STORED HERE:      // S_UNUSED_1, S_AMPMAXL,
+0,   // S_VTX_POWER,                //******** PREVIOUSLY STORED HERE:      // S_UNUSED_6
+0,   // S_VTX_POWER_TUNE,           //******** PREVIOUSLY STORED HERE:      // S_UNUSED_1, S_AMPMAXL,
 3,   // S_VTX_BAND // was S_UNUSED_2, S_AMPMAXH,
 0,   // S_RCWSWITCH,
 4,   // S_RCWSWITCH_CH,
@@ -362,6 +364,8 @@ MWOSDVER,   // used for check              0
 0x20,   // S_CS9,
 
 };
+
+
 
 uint16_t EEPROM16_DEFAULT[EEPROM16_SETTINGS] = {
   0,// S16_AMPMAX,
@@ -665,6 +669,22 @@ const PROGMEM char * const channelFreqTable[] = {
 	freq41,	freq42,	freq43,	freq44,	freq45,	freq46,	freq47,	freq48	// Band L / Low Band
 };
 
+const uint8_t tuneTable200[] PROGMEM = {
+	0,	4,	7,	8,	9,	10,	11,	12,	// BAND A
+	12,	11,	10,	9,	8,	7,	4,	0,	// BAND B
+	13,	14,	15,	15,	0,	0,	0,	0,	// BAND E
+	12,	11,	10,	9,	7,	6,	2,	0,	// BAND F
+	15,	14,	12,	10,	8,	5,	0,	0	// BAND C
+};
+
+const uint8_t tuneTable25[] PROGMEM = {
+	6,	7,	7,	7,	8,	8,	9,	9,	// BAND A
+	9,	9,	8,	8,	7,	7,	7,	6,	// BAND B
+	10,	1,	12,	13,	6,	5,	5,	4,	// BAND E
+	9,	9,	8,	7,	7,	7,	6,	6,	// BAND F
+	12,	11,	9,	8,	7,	7,	6,	5	// BAND C
+};
+
 // For GPSOSD
 #if defined GPSOSD
   #define  LAT  0
@@ -916,7 +936,7 @@ const char configMsg76[]  PROGMEM = "OSD TX CH";
 const char configMsg77[]  PROGMEM = "VTX OUTPUT PWR";
 const char configMsg770[] PROGMEM = "25 MW";
 const char configMsg771[] PROGMEM = "200 MW";
-const char configMsg772[] PROGMEM = "400 MW";
+//const char configMsg772[] PROGMEM = "400 MW";
 const char configMsg78[]  PROGMEM = "VTX POWER TUNE";
 //-----------------------------------------------------------Page8
 const char configMsg80[] PROGMEM = "GPS TIME";

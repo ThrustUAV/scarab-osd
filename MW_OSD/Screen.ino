@@ -1085,8 +1085,8 @@ void displayCursor(void)
     {
 #ifdef MENU_VTX_FREQ
 	if (configPage == MENU_VTX_FREQ){
-		if (ROW==8) ROW=10;
-		if (ROW==9) ROW=7;
+		if (ROW==7) ROW=10;
+		if (ROW==9) ROW=6;
 		if (ROW==0) ROW=1;
 		
 		if (ROW==2){
@@ -1341,9 +1341,11 @@ void displayConfigScreen(void)
 		strcpy(screenBuffer,"VTX PWR");
 		MAX7456_WriteString(screenBuffer, LEVT);
 		
+		/* Power tuning, can be used for debugging */
+		/*
 		strcpy(screenBuffer,"VTX TUNE");
 		MAX7456_WriteString(screenBuffer, MAGT);
-		
+		*/
 		switch (Settings[S_VTX_POWER])
 		{
 		default:
@@ -1351,17 +1353,21 @@ void displayConfigScreen(void)
 				break;
 		case 1: MAX7456_WriteString_P(configMsg771, LEVI-4);
 				break;
-		case 2: MAX7456_WriteString_P(configMsg772, LEVI-4);
-				break;
+		//case 2: MAX7456_WriteString_P(configMsg772, LEVI-4);
+		//		break;
 		}
 
-		MAX7456_WriteString(itoa(Settings[S_VTX_POWER_TUNE], screenBuffer, 10), MAGI-4);
+		//MAX7456_WriteString(itoa(Settings[S_VTX_POWER_TUNE], screenBuffer, 10), MAGI-4);
 		
-		// Debugging information
-		/*
-		MAX7456_WriteString(itoa(ROW,screenBuffer,10),VELT);
-		MAX7456_WriteString(itoa(COL,screenBuffer,10),VELI);
-		*/
+		/* Debugging information */
+		
+		//MAX7456_WriteString(itoa(globalTune,screenBuffer,10),LINE11+5);
+		
+		//MAX7456_WriteString(itoa(globalPower,screenBuffer,10),LINE11+12);
+		
+		//MAX7456_WriteString(itoa(Settings[S_VTX_POWER],screenBuffer,10),MAGD);
+		//MAX7456_WriteString(itoa(COL,screenBuffer,10),VELI);
+		
     }
 #endif
 #ifdef MENU_PID

@@ -78,8 +78,9 @@ uint16_t UntouchedStack(void)
 
 //------------------------------------------------------------------------
 #define VTX_POWER_MAX   0x0FF3F
-#define VTX_POWER_MID   0x0444D
+#define VTX_POWER_MID   0x04FBD  //was 0x0444D
 #define VTX_POWER_MIN   0x00040
+
 #define VTX_CS  17      // CS pin for VTX control
 #define DATAOUT 11              // MOSI
 #define SPICLOCK  13            // sck
@@ -1185,7 +1186,7 @@ void update_vtx_frequency(void)
 {
     uint8_t freq = 0;
     freq = ((8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ]));
-    
+    //freq = ((8*Settings[2])+(Settings[7]));
 	// Clock Divisor Register
     vtx_write(0x00, 0x0190);  // default value, provides 40kHz frequency resolution
 	
@@ -1195,33 +1196,123 @@ void update_vtx_frequency(void)
 
     update_vtx_power();
 }
+    
 
+
+uint32_t get_vtx_power_tune (uint8_t inputBand){
+	
+	uint32_t retTune;
+	
+	switch (inputBand){
+				case 0: //Band A
+					retTune = (uint32_t)(((uint32_t)((Settings[S_VTX_FREQ]))) << 15);
+					
+				break;
+				
+				case 1: //Band B
+					retTune = (uint32_t)(((uint32_t)(15-(Settings[S_VTX_FREQ]+7))) << 15);
+					
+				break;
+				
+				case 2: //Band E
+					if(Settings[S_VTX_FREQ]<4){
+						retTune = (uint32_t)(((uint32_t)(11-(Settings[S_VTX_FREQ]))) << 15);
+						
+					}
+					else{
+						retTune = (uint32_t)(((uint32_t)(15-(13))) << 15);
+						
+					}
+				break;
+				
+				case 3: //Band F
+					retTune = (uint32_t)(((uint32_t)(15-(Settings[S_VTX_FREQ]))) << 15);
+					
+				break;
+				
+				case 4: //Band C
+					retTune = (uint32_t)(((uint32_t)(31-(Settings[S_VTX_FREQ]+3))) << 15);
+					
+				break;
+				
+				case 5: //Band L
+					retTune = (uint32_t)(((uint32_t)(15-(Settings[S_VTX_FREQ]+7))) << 15);
+					
+				break;
+			}
+			
+			return retTune;
+	
+}
+	
+	
 void update_vtx_power(void)
 {
-    uint32_t power;
-    uint32_t tune;
+    uint32_t power = 0;
+    uint32_t tune = 0;
+	uint8_t tuneIndex = 0;
     
-    power = (uint32_t)VTX_POWER_MAX;
-
+    power = (uint32_t)VTX_POWER_MID;
+	//power = 0x90005;
+	//vtx_write(0x07,0x04FBD);
     switch (Settings[S_VTX_POWER])
     {
-      default:
-      case 2: power = VTX_POWER_MAX;
-              break;
-      case 1: power = VTX_POWER_MID;
-              break;
-      case 0: power = VTX_POWER_MIN;
+		default:
+		case 2: power = VTX_POWER_MAX;
+		break;
+			
+		case 1: power = VTX_POWER_MID;
+			//power = 0x801FD;
+			//vtx_write(0x07, power);
+			//delay(3); 
+			
+			tuneIndex = (8*Settings[S_VTX_BAND])+Settings[S_VTX_FREQ];
+			tune = ((uint32_t)(pgm_read_word_near(tuneTable200 + tuneIndex))<<15);
+			//tune = (uint32_t)(tuneTable200[tuneIndex]<<15);
+			
+			//tune = (uint32_t)(((uint32_t)(Settings[S_VTX_POWER_TUNE])) << 15);
+			//tune = (uint32_t)(14<<15);
+            power |= tune;
+			globalTune = (uint8_t)(pgm_read_word_near(tuneTable200 + tuneIndex));
+			//vtx_write(0x07, power);
+			//delay(3);
+			
+			//power &= ~(0x00040);
+			//vtx_write(0x07, power);
+			
+			
+			break;
+		case 0: power = VTX_POWER_MIN;
+		
+			tuneIndex = (8*Settings[S_VTX_BAND])+Settings[S_VTX_FREQ];
+			tune = ((uint32_t)(pgm_read_word_near(tuneTable25 + tuneIndex))<<15);
+		
+		
+			power |= tune;
+			globalTune = (uint8_t)(pgm_read_word_near(tuneTable25 + tuneIndex));
+		
+		    //tune = (uint32_t)(((uint32_t)(Settings[S_VTX_POWER_TUNE])) << 15);
+            //power |= tune;
+            break;
               //power |= (((uint8_t)Settings[S_VTX_POWER_TUNE]) << 15);
               //power |= (0x6 << 15);
               ///tune = 0b00110000000000000000;
               //tune = 196608;
-              tune = (uint32_t)(((uint32_t)(15-Settings[S_VTX_POWER_TUNE])) << 15);
-              power |= tune;
-              break;
+            //tune = (uint32_t)(((uint32_t)(15-Settings[S_VTX_POWER_TUNE])) << 15);
+            //power |= tune;
+        break;
     }
-
+	
+	
+	
+	
+	//globalPower = power;
+	
     vtx_write(0x07, power);
+	
 }
+
+
 
 void vtx_write(uint8_t addr, uint32_t data)
 {

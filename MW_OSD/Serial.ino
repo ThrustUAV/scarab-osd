@@ -689,7 +689,7 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 	{
     
 		if(ROW==1) Settings[S_VTX_BAND]=Settings[S_VTX_BAND]+menudir;
-		if(Settings[S_VTX_BAND]>=6){
+		if(Settings[S_VTX_BAND]>=100){
 			Settings[S_VTX_BAND] = 0;
 		}
 		if(Settings[S_VTX_BAND]>5){
@@ -698,7 +698,7 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 		
 		
         if(ROW==3) Settings[S_VTX_FREQ]=Settings[S_VTX_FREQ]+menudir;
-		if(Settings[S_VTX_FREQ]>=9){
+		if(Settings[S_VTX_FREQ]>=100){
 			Settings[S_VTX_FREQ] = 0;
 		}
 		if(Settings[S_VTX_FREQ]>7){
@@ -708,24 +708,30 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 		
 		if (ROW == 6)
 		{
+			
+		//changed bounds to remove 400mW option.
 		Settings[S_VTX_POWER]=Settings[S_VTX_POWER]+menudir;
-		if (Settings[S_VTX_POWER] >= 4)
+		if (Settings[S_VTX_POWER] >= 100)  //was 4
 			Settings[S_VTX_POWER] = 0;
-		else if (Settings[S_VTX_POWER] > 2)
-			Settings[S_VTX_POWER] = 2;
+		else if (Settings[S_VTX_POWER] > 1) //was 2
+			Settings[S_VTX_POWER] = 1; // was 2
 		update_vtx_power();
 		}
 		
 		
+		/* Power Tuning can be used for debugging */
+		
+		/*
 		if (ROW==7)
 		{
 		Settings[S_VTX_POWER_TUNE] = Settings[S_VTX_POWER_TUNE]+menudir;
-		if (Settings[S_VTX_POWER_TUNE] >= 17)
+		if (Settings[S_VTX_POWER_TUNE] >= 100)
 			Settings[S_VTX_POWER_TUNE] = 0;
-		else if (Settings[S_VTX_POWER_TUNE] > 15)
-			Settings[S_VTX_POWER_TUNE] = 15;
+		else if (Settings[S_VTX_POWER_TUNE] > 31)
+			Settings[S_VTX_POWER_TUNE] = 31;
 		update_vtx_power();
 		}
+		*/
 		
 	}
 #endif
