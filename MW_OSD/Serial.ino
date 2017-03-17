@@ -706,7 +706,7 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 		}
 		
 		
-		if (ROW == 6)
+		if (ROW == 7)
 		{
 			
 		//changed bounds to remove 400mW option.
@@ -715,7 +715,7 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 			Settings[S_VTX_POWER] = 0;
 		else if (Settings[S_VTX_POWER] > 1) //was 2
 			Settings[S_VTX_POWER] = 1; // was 2
-		update_vtx_power();
+		//update_vtx_power();
 		}
 		
 		
@@ -731,7 +731,9 @@ if(configPage == MENU_VTX_FREQ && COL == 2)
 			Settings[S_VTX_POWER_TUNE] = 31;
 		update_vtx_power();
 		}
+		
 		*/
+		
 		
 	}
 #endif
@@ -991,6 +993,10 @@ void configExit()
   #endif
   setMspRequests();
 
+  Settings[S_VTX_BAND] = selectedBand;
+  Settings[S_VTX_FREQ] = selectedFreq;
+  Settings[S_VTX_POWER] = selectedPwr;
+  
   /*
   digitalWrite(MAX7456SELECT,LOW);
   MAX7456_Send(VM0_reg, MAX7456_reset);

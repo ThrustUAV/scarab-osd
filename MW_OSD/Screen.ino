@@ -1085,8 +1085,8 @@ void displayCursor(void)
     {
 #ifdef MENU_VTX_FREQ
 	if (configPage == MENU_VTX_FREQ){
-		if (ROW==7) ROW=10;
-		if (ROW==9) ROW=6;
+		if (ROW==8) ROW=10;
+		if (ROW==9) ROW=7;
 		if (ROW==0) ROW=1;
 		
 		if (ROW==2){
@@ -1098,16 +1098,16 @@ void displayCursor(void)
 		
 		if (ROW==4){
 			if(oldROW==3)
-				ROW=6;
+				ROW=7;
 			else
 				ROW=3;
 		}
 		
-		if (ROW==5){
-			if(oldROW==6)
+		if (ROW==6){
+			if(oldROW==7)
 				ROW=3;
 			else
-				ROW=6;
+				ROW=7;
 		}
 		
 		oldROW=ROW;
@@ -1299,6 +1299,8 @@ void displayConfigScreen(void)
 #ifdef MENU_VTX_FREQ
     if (configPage == MENU_VTX_FREQ)
     {
+		
+
         
         strcpy_P(screenBuffer, (char*)pgm_read_word(&(menu_vtx_freq[0])));
         MAX7456_WriteString(screenBuffer, ROLLT);
@@ -1306,6 +1308,13 @@ void displayConfigScreen(void)
 		
 		strcpy_P(screenBuffer, (char*)pgm_read_word(&(menu_choice_vtx_band[Settings[S_VTX_BAND]])));
 		MAX7456_WriteString(screenBuffer, ROLLD-2);
+		
+		
+		strcpy_P(screenBuffer, (char*)pgm_read_word(&(menu_vtx_freq[1])));
+        MAX7456_WriteString(screenBuffer, PITCHT);
+		
+		//strcpy_P(screenBuffer, (char*)pgm_read_word(&(selectedFreq)));
+		MAX7456_WriteString(itoa(selectedFreq,screenBuffer,10),ROLLD+28);
 		
 		
 		strcpy_P(screenBuffer, (char*)pgm_read_word(&(menu_vtx_freq[1])));
@@ -1325,33 +1334,43 @@ void displayConfigScreen(void)
 		if(Settings[S_VTX_FREQ]>0){
 		strcpy_P(screenBuffer, (char*)pgm_read_word(&(channelFreqTable[(8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ]-1)])));
 		MAX7456_WriteString(screenBuffer, ALTT+2);
+		
+		
+		MAX7456_WriteString(itoa(Settings[S_VTX_FREQ]-1,screenBuffer,10),ALTT+35);
+		
 		}
 		
 		strcpy_P(screenBuffer, (char*)pgm_read_word(&(channelFreqTable[(8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ])])));
 		MAX7456_WriteString(screenBuffer, ALTI-4);
 		
+		MAX7456_WriteString(itoa(Settings[S_VTX_FREQ],screenBuffer,10),ALTI+29);
+		
 		if(Settings[S_VTX_FREQ]<7){
 		strcpy_P(screenBuffer, (char*)pgm_read_word(&(channelFreqTable[(8*Settings[S_VTX_BAND])+(Settings[S_VTX_FREQ]+1)])));
 		MAX7456_WriteString(screenBuffer, ALTD-2);
+		
+		
+		MAX7456_WriteString(itoa(Settings[S_VTX_FREQ]+1,screenBuffer,10),ALTD+31);
 		}
         
 		/* Debugging
 		MAX7456_WriteString(itoa(ROW,screenBuffer,10),MAGD);
 		*/
 		strcpy(screenBuffer,"VTX PWR");
-		MAX7456_WriteString(screenBuffer, LEVT);
+		MAX7456_WriteString(screenBuffer, MAGT);
 		
 		/* Power tuning, can be used for debugging */
 		/*
 		strcpy(screenBuffer,"VTX TUNE");
 		MAX7456_WriteString(screenBuffer, MAGT);
 		*/
+		
 		switch (Settings[S_VTX_POWER])
 		{
 		default:
-		case 0: MAX7456_WriteString_P(configMsg770, LEVI-4);
+		case 0: MAX7456_WriteString_P(configMsg770, MAGI-4);
 				break;
-		case 1: MAX7456_WriteString_P(configMsg771, LEVI-4);
+		case 1: MAX7456_WriteString_P(configMsg771, MAGI-4);
 				break;
 		//case 2: MAX7456_WriteString_P(configMsg772, LEVI-4);
 		//		break;

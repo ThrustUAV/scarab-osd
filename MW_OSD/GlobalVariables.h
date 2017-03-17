@@ -609,7 +609,7 @@ const uint16_t channelTable[] PROGMEM = {
     0x5A21,	0x562D,	0x5239,	0x4E85,	0x7D35,	0x8129,	0x851D,	0x8911, // Band E
     0x610C,	0x6500,	0x68B4,	0x6CA8,	0x709C,	0x7490,	0x7884,	0x7C38, // Band F / Airwave
     0x510A,	0x5827,	0x5F84,	0x66A1,	0x6DBE,	0x751B,	0x7C38,	0x8395, // Band C / Immersion Raceband
-	0x0C11,	0x1005,	0x13B9,	0x17AD,	0x1BA1,	0x1F95,	0x2389,	0x45A0, // Band L, Low Band
+	0x45A0,	0x4290,	0x3B33,	0x3416,	0x2CB9,	0x259C,	0x1E3F,	0x1722, // Band L, Low Band
 };
 const char freq01[]PROGMEM = "5865";
 const char freq02[]PROGMEM = "5845";
@@ -651,14 +651,14 @@ const char freq37[]PROGMEM = "5806";
 const char freq38[]PROGMEM = "5843";
 const char freq39[]PROGMEM = "5880";
 const char freq40[]PROGMEM = "5917";
-const char freq41[]PROGMEM = "5305";
-const char freq42[]PROGMEM = "5325";
-const char freq43[]PROGMEM = "5345";
-const char freq44[]PROGMEM = "5365";
-const char freq45[]PROGMEM = "5385";
-const char freq46[]PROGMEM = "5405";
-const char freq47[]PROGMEM = "5425";
-const char freq48[]PROGMEM = "5600";
+const char freq41[]PROGMEM = "5600";
+const char freq42[]PROGMEM = "5584";
+const char freq43[]PROGMEM = "5547";
+const char freq44[]PROGMEM = "5510";
+const char freq45[]PROGMEM = "5473";
+const char freq46[]PROGMEM = "5436";
+const char freq47[]PROGMEM = "5399";
+const char freq48[]PROGMEM = "5362";
 const PROGMEM char * const channelFreqTable[] = {
     // Channel 1 - 8
     freq01, freq02, freq03, freq04, freq05, freq06, freq07, freq08, // Band A
@@ -670,20 +670,26 @@ const PROGMEM char * const channelFreqTable[] = {
 };
 
 const uint8_t tuneTable200[] PROGMEM = {
-	0,	4,	7,	8,	9,	10,	11,	12,	// BAND A
-	12,	11,	10,	9,	8,	7,	4,	0,	// BAND B
-	13,	14,	15,	15,	0,	0,	0,	0,	// BAND E
-	12,	11,	10,	9,	7,	6,	2,	0,	// BAND F
-	15,	14,	12,	10,	8,	5,	0,	0	// BAND C
+	0,	0,	0,	0,	0,	0,	0,	0,	// BAND A
+	0,	0,	0,	0,	0,	0,	0,	0,	// BAND B
+	0,	7,	7,	11,	0,	0,	0,	0,	// BAND E
+	0,	0,	0,	0,	0,	0,	0,	0,	// BAND F
+	0,	0,	0,	0,	0,	0,	0,	0,	// BAND C
+	0,	0,	0,	0,	0,	0,	0,	0,	// BAND L
 };
 
 const uint8_t tuneTable25[] PROGMEM = {
-	6,	7,	7,	7,	8,	8,	9,	9,	// BAND A
-	9,	9,	8,	8,	7,	7,	7,	6,	// BAND B
-	10,	1,	12,	13,	6,	5,	5,	4,	// BAND E
-	9,	9,	8,	7,	7,	7,	6,	6,	// BAND F
-	12,	11,	9,	8,	7,	7,	6,	5	// BAND C
+	7,	7,	8,	8,	8,	8,	9,	10,	// BAND A
+	10,	9,	9,	8,	8,	7,	7,	7,	// BAND B
+	11,	12,	12,	13,	6,	6,	6,	6,	// BAND E
+	9,	8,	7,	7,	7,	6,	6,	6,	// BAND F
+	11,	10,	9,	9,	8,	8,	7,	6,	// BAND C
+	8,	8,	10,	11,	13,	15,	15,	15,	// BAND L
 };
+
+static uint8_t selectedFreq = 0;
+static uint8_t selectedBand = 0;
+static uint8_t selectedPwr = 0;
 
 // For GPSOSD
 #if defined GPSOSD
